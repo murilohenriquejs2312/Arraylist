@@ -5,12 +5,14 @@ import java.util.Scanner;
 
 public class App {
     static List<Aluno> alunos = new ArrayList<>();
+
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         Integer opcao = 0;
-        while(opcao != 6){
+        while (opcao != 6) {
 
-            System.out.println("Este é um CRUD de alunos! \nDigite 1 para cadastrar\nDigite 2 para mostrar\nDigite 3 para deletar\nDigite 4 para editar");
+            System.out.println(
+                    "Este é um CRUD de alunos! \nDigite 1 para cadastrar\nDigite 2 para mostrar\nDigite 3 para deletar\nDigite 4 para editar\nDigite 5 para filtrar");
             opcao = sc.nextInt();
             switch (opcao) {
                 case 1:
@@ -31,13 +33,16 @@ public class App {
                     System.out.println("Digite o id a ser editado: ");
                     Integer id2 = sc.nextInt();
                     editar(id2);
+                case 5:
+                    filtrarpornome();
+                    break;
             }
         }
     }
 
-    public static void cadastrar(){
+    public static void cadastrar() {
         Scanner sc = new Scanner(System.in);
-        Aluno aluno = new Aluno();  
+        Aluno aluno = new Aluno();
         System.out.println("Digite o nome do aluno: ");
         aluno.setNome(sc.nextLine());
         System.out.println("Digite o curso do aluno: ");
@@ -49,58 +54,73 @@ public class App {
         alunos.add(aluno);
     }
 
-    public static void mostrar(){
-        for(int i = 0; i < alunos.size(); i++){
+    public static void mostrar() {
+        for (int i = 0; i < alunos.size(); i++) {
             Aluno aluno = alunos.get(i);
-            System.out.println("Id: "+i);
-            System.out.println("Nome: "+aluno.getNome());
-            System.out.println("Turma: "+aluno.getTurma());
-            System.out.println("Idade: "+aluno.getIdade());
-            System.out.println("Curso: "+aluno.getCurso());
+            System.out.println("Id: " + i);
+            System.out.println("Nome: " + aluno.getNome());
+            System.out.println("Turma: " + aluno.getTurma());
+            System.out.println("Idade: " + aluno.getIdade());
+            System.out.println("Curso: " + aluno.getCurso());
             System.out.println("----------------------------------");
         }
     }
 
-    public static void deletar(Integer id){
+    public static void deletar(Integer id) {
         Aluno aluno = alunos.get(id);
         alunos.remove(aluno);
         System.out.println("Aluno deletado!!!");
     }
 
-    public static void editar(Integer id){
+    public static void editar(Integer id) {
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
         Aluno aluno = alunos.get(id);
         System.out.println("O nome do aluno é: "
-        +aluno.getNome()+"\n1Digite 1 para editar: ");
+                + aluno.getNome() + "\nDigite 1 para editar: ");
         Integer opcao = sc.nextInt();
-        if (opcao == 1){
+        if (opcao == 1) {
             System.out.println("Digite o novo nome: ");
             aluno.setNome(sc2.nextLine());
         }
-         System.out.println("A idade do aluno é: "
-        +aluno.getIdade()+"\nDigite 1 para editar: ");
+        System.out.println("A idade do aluno é: "
+                + aluno.getIdade() + "\nDigite 1 para editar: ");
         opcao = sc.nextInt();
-        if(opcao == 1){
+        if (opcao == 1) {
             System.out.println("Digite a nova idade: ");
             aluno.setIdade(sc.nextInt());
         }
         System.out.println("o curso do aluno é: "
-        +aluno.getCurso()+"\nDigite 1 para editar: ");
+                + aluno.getCurso() + "\nDigite 1 para editar: ");
         opcao = sc.nextInt();
-        if (opcao == 1){
+        if (opcao == 1) {
             System.out.println("Digite o novo curso: ");
             aluno.setCurso(sc2.nextLine());
         }
         System.out.println("a turma do aluno é: "
-        +aluno.getTurma()+"\nDigite 1 para editar: ");
+                + aluno.getTurma() + "\nDigite 1 para editar: ");
         opcao = sc.nextInt();
-        if (opcao == 1){
+        if (opcao == 1) {
             System.out.println("Digite a nova turma: ");
             aluno.setTurma(sc2.nextLine());
         }
         System.out.println("Dados alterados!!!");
 
-    } 
+    }
+
+    public static void filtrarpornome() {
+        Scanner sc = new Scanner(System.in);
+        String nome;
+        System.out.println("Digite o nome a ser  filtrado: ");
+        nome = sc.nextLine();
+        for (Aluno individuo : alunos) {
+            if (individuo.getNome().contains(nome)){
+
+                System.out.println("Nome: " + individuo.getNome());
+                System.out.println("Turma: " + individuo.getTurma());
+                System.out.println("----------------------------------");
+            }
+        }
+    }
 
 }
